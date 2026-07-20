@@ -40,24 +40,11 @@ const ChatWindow = () => {
     try {
       const response = await fetch(`${API}/api/chat`, options);
       const res = await response.json();
-
       setReply(res.reply);
-
-      setAllThreads((prev) => {
-        const exists = prev.some(
-          (thread) => thread.threadId === res.thread.threadId,
-        );
-
-        if (exists) return prev;
-
-        return [res.thread, ...prev];
-      });
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
-
-    // setPrompt("");
   };
 
   //Append new chat to prevChats

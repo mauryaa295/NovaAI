@@ -43,9 +43,8 @@ const Sidebar = () => {
     setPrevChats([]);
   };
 
-  const changeThread = async (newThreadId) => {
-    setCurrThreadId(newThreadId);
-
+  const changeThread = async (threadId) => {
+    setCurrThreadId(threadId);
     try {
       const response = await fetch(`${API}/api/thread/${threadId}`);
       const res = await response.json();

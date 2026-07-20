@@ -77,7 +77,7 @@ router.post("/chat", async (req, res) => {
         title: message,
         messages: [{ role: "user", content: message }],
       });
-      //const response = thread.save()
+      const response = thread.save();
     } else {
       thread.messages.push({ role: "user", content: message });
     }
@@ -86,15 +86,11 @@ router.post("/chat", async (req, res) => {
     thread.messages.push({ role: "assistant", content: assistantReply });
     thread.updatedAt = new Date();
     await thread.save();
-    res.json({
-      reply: assistantReply,
-      thread: {
-        threadId: thread.threadId,
-        title: thread.title,
-      },
-    });
+    res.json({ reply: assistantReply });
   } catch (error) {
-    console.log(error);
+    console.log(error.response?.status);
+    console.log(error.response?.data);
+    console.log(error.message);
     res.status(500).json({ error: "something went wrong" });
   }
 });
